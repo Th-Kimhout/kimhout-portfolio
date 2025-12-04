@@ -58,16 +58,27 @@ body {
 }
 
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(148, 163, 184, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(100, 116, 139, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 40% 20%, rgba(71, 85, 105, 0.06) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 20% 50%,
+      rgba(148, 163, 184, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(100, 116, 139, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 20%,
+      rgba(71, 85, 105, 0.06) 0%,
+      transparent 50%
+    );
   pointer-events: none;
   z-index: 0;
 }
@@ -149,15 +160,19 @@ body::before {
     -ms-user-select: none;
     user-select: none;
   }
-  
+
   /* Allow selection on interactive elements */
-  a, button, input, textarea, [contenteditable] {
+  a,
+  button,
+  input,
+  textarea,
+  [contenteditable] {
     -webkit-user-select: auto;
     -moz-user-select: auto;
     -ms-user-select: auto;
     user-select: auto;
   }
-  
+
   body {
     @apply bg-background text-foreground;
   }
@@ -165,21 +180,13 @@ body::before {
 
 /* Profile Image Effects for Rain/Tech Theme */
 .profile-image-enhanced {
-  filter: 
-    brightness(0.95) 
-    contrast(1.1) 
-    saturate(0.85)
-    sepia(0.08);
+  filter: brightness(0.95) contrast(1.1) saturate(0.85) sepia(0.08);
   transition: filter 0.3s ease;
   position: relative;
 }
 
 .profile-image-enhanced:hover {
-  filter: 
-    brightness(1) 
-    contrast(1.12) 
-    saturate(0.9)
-    sepia(0.1);
+  filter: brightness(1) contrast(1.12) saturate(0.9) sepia(0.1);
 }
 
 .profile-image-container {
@@ -187,14 +194,26 @@ body::before {
 }
 
 .profile-image-container::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(100, 116, 139, 0.08) 0%, transparent 50%),
-    linear-gradient(135deg, transparent 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%);
+  background: radial-gradient(
+      circle at 30% 30%,
+      rgba(59, 130, 246, 0.12) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(100, 116, 139, 0.08) 0%,
+      transparent 50%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(59, 130, 246, 0.05) 50%,
+      transparent 100%
+    );
   pointer-events: none;
   opacity: 0.9;
   z-index: 15;
@@ -205,7 +224,11 @@ body::before {
 .profile-image-container .blue-tint-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(100, 116, 139, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.08) 0%,
+    rgba(100, 116, 139, 0.05) 100%
+  );
   pointer-events: none;
   z-index: 12;
   border-radius: inherit;
@@ -213,12 +236,15 @@ body::before {
 }
 
 /* Smooth transitions for interactive elements */
-a, button, [role="button"] {
+a,
+button,
+[role="button"] {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Optimize animations with GPU acceleration */
-.motion-div, [data-framer-component] {
+.motion-div,
+[data-framer-component] {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
