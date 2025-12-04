@@ -1,39 +1,51 @@
 "use client";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { portfolioData } from "@/lib/portfolio-data";
 
-const ProjectsSection = () => {
+const ProjectsSection = React.memo(() => {
   const { projects } = portfolioData;
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.15,
+        },
       },
-    },
-  };
+    }),
+    []
+  );
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 30 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.5,
+          ease: [0.25, 0.1, 0.25, 1],
+        },
       },
-    },
-  };
+    }),
+    []
+  );
 
   return (
-    <section id="projects" className="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 min-h-screen">
+    <section
+      id="projects"
+      className="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 min-h-screen"
+    >
       <div className="max-w-7xl mx-auto w-full">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ ease: [0.25, 0.1, 0.25, 1] }}
           className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 md:mb-16"
         >
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
@@ -49,15 +61,15 @@ const ProjectsSection = () => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full"
         >
           {projects.map((project, index) => (
-            <motion.div 
-              key={index} 
+            <motion.div
+              key={index}
               variants={itemVariants}
               className="w-full h-full"
             >
               <motion.div
                 whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="bg-gray-900/50 relative group border border-slate-500/30 rounded-xl p-4 sm:p-6 backdrop-blur-sm hover:border-blue-500/20 transition-all flex flex-col h-full min-h-[350px] sm:min-h-[400px] shadow-lg hover:shadow-blue-500/10"
+                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                className="bg-gray-900/50 relative group border border-slate-500/30 rounded-xl p-4 sm:p-6 backdrop-blur-sm hover:border-blue-500/20 transition-all duration-300 ease-out flex flex-col h-full min-h-[350px] sm:min-h-[400px] shadow-lg hover:shadow-blue-500/10"
               >
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">
                   {project.title}
@@ -106,7 +118,8 @@ const ProjectsSection = () => {
       </div>
     </section>
   );
-};
+});
+
+ProjectsSection.displayName = "ProjectsSection";
 
 export default ProjectsSection;
-

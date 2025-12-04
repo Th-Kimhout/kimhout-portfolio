@@ -35,10 +35,10 @@ const Navbar = () => {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              <span className="group-hover:text-sky-400 transition-colors">
+              <span className="group-hover:text-sky-400 transition-colors duration-300 ease-out">
                 Home
               </span>
-              <span className="absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 group-hover:scale-x-100 bg-blue-500 transition-transform origin-left duration-300" />
+              <span className="absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 group-hover:scale-x-100 bg-blue-500 transition-transform origin-left duration-300 ease-out" />
             </a>
 
             <a

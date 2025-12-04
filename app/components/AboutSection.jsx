@@ -1,30 +1,39 @@
 "use client";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { portfolioData } from "@/lib/portfolio-data";
 
-const AboutSection = () => {
+const AboutSection = React.memo(() => {
   const { about, personal } = portfolioData;
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.2,
+        },
       },
-    },
-  };
+    }),
+    []
+  );
+
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.5,
+          ease: [0.25, 0.1, 0.25, 1],
+        },
+      },
+    }),
+    []
+  );
 
   return (
     <section
@@ -49,6 +58,7 @@ const AboutSection = () => {
                 src={personal.profileImage}
                 alt={personal.name}
                 fill
+                loading="lazy"
                 className="object-cover profile-image-enhanced relative z-10"
               />
               <div className="blue-tint-overlay"></div>
@@ -96,7 +106,8 @@ const AboutSection = () => {
                 download
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-5 sm:px-6 py-2.5 sm:py-3 bg-gray-800 text-white rounded-lg font-semibold text-sm sm:text-base border border-blue-500/20 hover:bg-slate-900/20 transition-all"
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="px-5 sm:px-6 py-2.5 sm:py-3 bg-gray-800 text-white rounded-lg font-semibold text-sm sm:text-base border border-blue-500/20 hover:bg-slate-900/20 transition-all duration-300 ease-out"
               >
                 {about.buttons.cv.text}
               </motion.a>
@@ -128,6 +139,8 @@ const AboutSection = () => {
       </div>
     </section>
   );
-};
+});
+
+AboutSection.displayName = "AboutSection";
 
 export default AboutSection;
