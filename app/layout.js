@@ -1,6 +1,10 @@
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/NavbarComponent";
+import TitleBar from "./components/ide/TitleBar";
+import Sidebar from "./components/ide/Sidebar";
+import TabBar from "./components/ide/TabBar";
+import StatusBar from "./components/ide/StatusBar";
+import Terminal from "./components/ide/Terminal";
 
 const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
@@ -16,12 +20,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${robotoMono.variable} antialiased bg-gradient-to-br from-slate-950 via-blue-950/30 to-slate-900`}>
-        <div className=" relative z-10">
-          <Navbar />
-        </div>
+      <body className={`${robotoMono.variable} antialiased`}>
+        {/* IDE chrome */}
+        <TitleBar />
+        <TabBar />
+        <Sidebar />
 
-        {children}
+        {/* Editor content area */}
+        <main className="pt-[76px] lg:pl-60 pb-16">{children}</main>
+
+        {/* Bottom panels */}
+        <Terminal />
+        <StatusBar />
       </body>
     </html>
   );

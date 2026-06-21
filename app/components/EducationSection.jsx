@@ -3,6 +3,34 @@ import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, Briefcase } from "lucide-react";
 import { portfolioData } from "@/lib/portfolio-data";
+import CodeHeading from "./ide/CodeHeading";
+import CodeCard from "./ide/CodeCard";
+
+const TimelineCard = ({ icon: Icon, file, label, items, labelKey, variants }) => (
+  <motion.div variants={variants} className="h-full">
+    <CodeCard
+      title={file}
+      gutter
+      headerRight={
+        <span className="flex items-center gap-1 tok-dim">
+          <Icon className="w-3.5 h-3.5 tok-accent" />
+          {label}
+        </span>
+      }
+      className="h-full"
+    >
+      {items.map((item, index) => (
+        <div key={index} className="code-line py-2 first:pt-0">
+          <p className="tok-string text-xs mb-0.5">{item.date}</p>
+          <h4 className="text-sm sm:text-base font-semibold text-tn-fg">
+            {item.title}
+          </h4>
+          <p className="text-xs sm:text-sm tok-dim">{item[labelKey]}</p>
+        </div>
+      ))}
+    </CodeCard>
+  </motion.div>
+);
 
 const EducationSection = React.memo(() => {
   const { education, experience } = portfolioData;
@@ -10,26 +38,18 @@ const EducationSection = React.memo(() => {
   const containerVariants = useMemo(
     () => ({
       hidden: { opacity: 0 },
-      visible: {
-        opacity: 1,
-        transition: {
-          staggerChildren: 0.1,
-        },
-      },
+      visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
     }),
     []
   );
 
   const itemVariants = useMemo(
     () => ({
-      hidden: { opacity: 0, x: -20 },
+      hidden: { opacity: 0, y: 24 },
       visible: {
         opacity: 1,
-        x: 0,
-        transition: {
-          duration: 0.5,
-          ease: [0.25, 0.1, 0.25, 1],
-        },
+        y: 0,
+        transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
       },
     }),
     []
@@ -38,92 +58,35 @@ const EducationSection = React.memo(() => {
   return (
     <section
       id="education"
-      className="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 min-h-screen"
+      className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-8"
     >
-      <div className="max-w-7xl mx-auto w-full">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 md:mb-16"
+      <div className="max-w-6xl mx-auto w-full">
+        <CodeHeading file="education.md" title="Academic & Professional Journey" />
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-start"
         >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
-            My Academic and Professional Journey
-          </span>
-        </motion.h2>
-
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-          {/* Education Column */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="space-y-6"
-          >
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <GraduationCap className="w-6 h-6 sm:w-8 sm:h-8 text-sky-400" />
-              <h3 className="text-xl sm:text-2xl font-bold text-white">
-                Education
-              </h3>
-            </div>
-            {education.map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02, x: 10 }}
-                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                className="bg-gray-900/50 border border-slate-500/30 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:border-blue-500/20 transition-all duration-300 ease-out shadow-lg hover:shadow-blue-500/10"
-              >
-                <p className="text-sky-400 text-xs sm:text-sm mb-2">
-                  {item.date}
-                </p>
-                <h4 className="text-lg sm:text-xl font-semibold text-white mb-1">
-                  {item.title}
-                </h4>
-                <p className="text-sm sm:text-base text-gray-400">
-                  {item.institution}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Professional Experience Column */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="space-y-6"
-          >
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 text-sky-400" />
-              <h3 className="text-xl sm:text-2xl font-bold text-white">
-                Professional Experience
-              </h3>
-            </div>
-            {experience.map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02, x: 10 }}
-                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                className="bg-gray-900/50 border border-slate-500/30 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:border-blue-500/20 transition-all duration-300 ease-out shadow-lg hover:shadow-blue-500/10"
-              >
-                <p className="text-sky-400 text-xs sm:text-sm mb-2">
-                  {item.date}
-                </p>
-                <h4 className="text-lg sm:text-xl font-semibold text-white mb-1">
-                  {item.title}
-                </h4>
-                <p className="text-sm sm:text-base text-gray-400">
-                  {item.company}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+          <TimelineCard
+            icon={GraduationCap}
+            file="education.md"
+            label="education"
+            items={education}
+            labelKey="institution"
+            variants={itemVariants}
+          />
+          <TimelineCard
+            icon={Briefcase}
+            file="experience.md"
+            label="experience"
+            items={experience}
+            labelKey="company"
+            variants={itemVariants}
+          />
+        </motion.div>
       </div>
     </section>
   );
